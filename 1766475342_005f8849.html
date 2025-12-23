@@ -1,0 +1,596 @@
+**受功能限制，场记表格请复制html代码块到本地记事本，然后将尾缀改为.html打开**
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>访谈记录表格</title>
+    <style>
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .download-btn-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .download-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            table-layout: fixed; /* 固定列宽，防止内容撑爆 */
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            vertical-align: top;
+            word-wrap: break-word; /* 允许长单词换行 */
+        }
+        th {
+            background-color: #4472C4; /* 蓝色表头 */
+            color: black; /* 字体黑色 */
+            font-weight: bold;
+            text-align: center;
+        }
+        /* 交替行底色 */
+        tr:nth-child(even) {
+            background-color: #f9f9f9; /* 浅灰色 */
+        }
+        tr:nth-child(odd) {
+            background-color: #ffffff; /* 白色 */
+        }
+        /* 第一列宽度稍微窄一点 */
+        th:first-child, td:first-child {
+            width: 15%;
+            background-color: #eef2f3;
+            font-weight: bold;
+        }
+        /* 观点高亮 */
+        .point {
+            background-color: #ffffcc; /* 黄底 */
+            font-weight: bold;
+            color: #000;
+        }
+        /* 原文样式 */
+        .quote {
+            color: #666; /* 灰色 */
+            font-style: italic;
+            display: block;
+            margin-top: 4px;
+            font-size: 0.9em;
+        }
+        /* 分隔线 */
+        .separator {
+            border-top: 1px dashed #bbb;
+            margin: 10px 0;
+        }
+        /* 补充说明 */
+        .supplement {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+    <script>
+        function exportTableToExcel(tableID, filename = ''){
+            var downloadLink;
+            var dataType = 'application/vnd.ms-excel';
+            var tableSelect = document.getElementById(tableID);
+            var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+            
+            filename = filename?filename+'.xls':'excel_data.xls';
+            
+            downloadLink = document.createElement("a");
+            
+            document.body.appendChild(downloadLink);
+            
+            if(navigator.msSaveOrOpenBlob){
+                var blob = new Blob(['\ufeff', tableHTML], {
+                    type: dataType
+                });
+                navigator.msSaveOrOpenBlob( blob, filename);
+            }else{
+                downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+                downloadLink.download = filename;
+                downloadLink.click();
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <div class="download-btn-container">
+        <button class="download-btn" onclick="exportTableToExcel('interviewTable', '用户访谈记录')">导出为Excel</button>
+    </div>
+
+    <table id="interviewTable">
+        <thead>
+            <tr>
+                <th>引导/设问话术</th>
+                <th>刘淇</th>
+                <th>沈丙婕</th>
+                <th>俞旭鹏</th>
+                <th>林宇煌</th>
+                <th>高嘉玥</th>
+                <th>杨浩</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>请问大佬之前游玩过哪些策略卡牌类的游戏？（比如公主链接、阴阳师等）</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <span class="point">观点1：玩过阴阳师、杀戮尖塔、明日方舟（陈述）</span>
+                    <span class="quote">原文：阴阳师什么杀戮尖塔，什么明日方舟这种游戏有</span>
+                </td>
+                <td>
+                    <span class="point">观点1：玩过炉石传说、阴阳师百闻牌、影之诗（陈述）</span>
+                    <span class="quote">原文：我之前就玩过炉石，然后玩过炉...玩过就阴阳师的百闻牌有...影之诗玩了一就没有玩很久</span>
+                </td>
+                <td>
+                    <span class="point">观点1：玩过炉石、影之诗、杀戮尖塔（陈述）</span>
+                    <span class="quote">原文：录制（炉石）影之诗，经常来抽烟（杀戮尖塔）的都有。</span>
+                </td>
+            </tr>
+            <tr>
+                <td>这些游戏您大概游玩了多久？</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <span class="point">观点1：未提及具体时长（不明）</span>
+                </td>
+                <td>
+                    <span class="point">观点1：百闻牌玩了一年多，从开服玩到关服（陈述）</span>
+                    <span class="quote">原文：其实之前玩了一年多百闻牌是从它开服玩到关服。</span>
+                </td>
+                <td>
+                    <span class="point">观点1：未提及具体时长（不明）</span>
+                </td>
+            </tr>
+            <tr>
+                <td>大佬在玩这些游戏的时候，会主动研究战斗玩法中的策略吗？（如研究角色配队、高难环境下的关卡机制、主动凹分等行为）</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <span class="point">观点1：偏好稳定的玩法，不太挑战高难（陈述）</span>
+                    <span class="quote">原文：比较稳定是吧？Ok要注意。</span>
+                </td>
+                <td>
+                    <span class="point">观点1：会主动配置策略，喜欢玩“恶心”的卡组（正面）</span>
+                    <span class="quote">原文：会去玩一些很恶心的卡。组，就会自己去配卡组，然后自己去发明一些卡。</span>
+                    <div class="separator"></div>
+                    <span class="point">观点2：会在别人攻略基础上修改卡组（陈述）</span>
+                    <span class="quote">原文：会在他们的基础上做改？就是改卡组...ok感觉就是能说机制我其实看不太明白，我一般都是要不就是实战里面去打，然后知道大概这个角色机制是什么样子的</span>
+                </td>
+                <td>
+                    <span class="point">观点1：会基于强度和处理去构筑，但不会极端追求排行榜（陈述）</span>
+                    <span class="quote">原文：前面会高峰排行榜应该不会构筑物之类的，但一般来说是基于一定的处理和强度结合去做出一个...相当于是会去研究一些套路和玩法，但不会那么极端的去追求一些比如说排行榜上的。</span>
+                </td>
+            </tr>
+            <tr>
+                <td>大佬在9月份是否有参加过ABC项目的CB1公司内跑测？</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <span class="point">观点1：没有参加过（陈述）</span>
+                    <span class="quote">原文：没有。</span>
+                </td>
+                <td>
+                    <span class="point">观点1：参加过（陈述）</span>
+                    <span class="quote">原文：参加了。</span>
+                </td>
+                <td>
+                    <span class="point">观点1：参加了但没时间玩，只在旁边看过（陈述）</span>
+                    <span class="quote">原文：有参加，但是实际上可能没时间玩，所以不过边上在网上有看过，大概是有那种感觉，应该跟财产（铲铲）的基本的其实差不多。</span>
+                </td>
+            </tr>
+            <tr>
+                <td>如果有，对CB1的战斗内容目前还留有什么印象？（比如他是否好玩、有趣）</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <span class="point">观点1：当时以为是自走棋，现在看像卡牌（陈述）</span>
+                    <span class="quote">原文：之前其实也看过...当时没有太多的特别太多的感受，当时还以为第一次也是做鞋（自走棋），后面看起来像卡牌</span>
+                </td>
+                <td>
+                    <span class="point">观点1：玩得不深入，当时没太玩明白自走棋玩法（负面）</span>
+                    <span class="quote">原文：其实玩的不是很深入，大概看了一下系统那些的东西，然后说实话当时自走棋没有太玩明白</span>
+                    <div class="separator"></div>
+                    <span class="point">观点2：大概推到了学校/小孩绘本的进度（陈述）</span>
+                    <span class="quote">原文：推到就是学校。推完，学校推完，小孩绘本推完</span>
+                </td>
+                <td>
+                    <span class="point">观点1：感觉跟铲铲差不多（陈述）</span>
+                    <span class="quote">原文：应该跟财产（铲铲）的基本的其实差不多。</span>
+                </td>
+            </tr>
+            <tr>
+                <td>游玩过教学关卡后，目前大佬对咱们局内战斗的基本规则，是否还有哪里是不清晰的？</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <span class="point">观点1：没有不清晰的地方（正面）</span>
+                    <span class="quote">原文：这倒是没有，ok好的。</span>
+                </td>
+                <td>
+                    <span class="point">观点1：暂时没有不清楚的地方（正面）</span>
+                    <span class="quote">原文：没有就暂时还没有。</span>
+                </td>
+                <td>
+                    <span class="point">观点1：没有不清晰的地方（正面）</span>
+                    <span class="quote">原文：没有。</span>
+                </td>
+            </tr>
+            <tr>
+                <td>如果要您从整体的感受（比如玩法是否吸引您、是否好玩、看着有没有想象空间）上去评价本次demo中的两个方案，由1~5分进行打分的话（1：非常不满意；5：非常满意），您会给方案一和方案二打几分？</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <span class="point">观点1：方案一打4分，方案二打2分（陈述）</span>
+                    <span class="quote">原文：我就这两个4424。（主持人确认：4和2）</span>
+                </td>
+                <td>
+                    <span class="point">观点1：方案一（共用条）打4-5分（正面）</span>
+                    <span class="quote">原文：我觉得公公用条的话，我可能打的可能会打4分或者4~5之间，我会觉得会好玩一点</span>
+                    <div class="separator"></div>
+                    <span class="point">观点2：方案二（独立条）打3分（负面）</span>
+                    <span class="quote">原文：目前都是改第二，方案二您给的1~5分的概率...三分。</span>
+                </td>
+                <td>
+                    <span class="point">观点1：方案一打3分（陈述）</span>
+                    <span class="quote">原文：目前感觉都是当一个三分差不多感觉中中规中矩</span>
+                    <div class="separator"></div>
+                    <span class="point">观点2：方案二打2分（负面）</span>
+                    <span class="quote">原文：二的话就是两分。</span>
+                </td>
+            </tr>
+            <tr>
+                <td>您给方案一和方案二，在整体游玩感受上给出这个评价的原因是什么呢？</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <span class="point">观点1：方案一需要分配点数，更有操作感（正面）</span>
+                    <span class="quote">原文：第一种可能还有点数好像是也有玩过类似的点数，用掉就分配给4s店，可能还要有操作。</span>
+                    <div class="separator"></div>
+                    <span class="point">观点2：方案二太简单了，被锁死了（负面）</span>
+                    <span class="quote">原文：其实我觉得第二种那种太简单了，对我来说是...然后第二种是直接被锁死了，反正上线就到那边。</span>
+                </td>
+                <td>
+                    <span class="point">观点1：方案一更有策略性（正面）</span>
+                    <span class="quote">原文：我觉得公公用条的话...我会觉得会好玩一点</span>
+                    <div class="separator"></div>
+                    <span class="point">观点2：方案二只是机械交互，哪里亮了点哪里，缺乏配合（负面）</span>
+                    <span class="quote">原文：然后哪里亮点哪里，我感觉就有点我点击机器有一点，他非要我给他个交互。可能我觉得还是因为他这个阵容他没有什么，他现在是三个人是确定的，他没有什么卡组之类的配合，可能策略的话得有这个东西</span>
+                    <div class="separator"></div>
+                    <span class="point">观点3：方案二作为无脑解压可以接受，但不适合长期玩（建议）</span>
+                    <span class="quote">原文：是不是还过得去？它作为一个我无脑捡捡乐的话还是可以接受的...但是我不太确定这个东西，如果我去把它作为一个我每天要刷的东西，我能不能可能投资感会比较还是能接受。</span>
+                </td>
+                <td>
+                    <span class="point">观点1：方案一中规中矩，没有出彩点但也没硬伤（陈述）</span>
+                    <span class="quote">原文：很多游戏里面都经历过类似设计不算新鲜...他没有出彩的，没有让我感觉加分的点，但是你要说也没有硬说要扣分</span>
+                    <div class="separator"></div>
+                    <span class="point">观点2：方案二机制偏P2W（Pay to Win），会让人想放弃战斗（负面）</span>
+                    <span class="quote">原文：然后二的话完全会有一点，我大概如果是二机制的话，我就直接会到后头了，偏偏o to m对...或者让我感觉有种会放弃战斗的受伤，然后可以随时扣一分</span>
+                </td>
+            </tr>
+            <tr>
+                <td>在本次测试的游玩过程中，是否存在某一个让您觉得惊喜、有吸引力的地方？</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <span class="point">观点1：没有特别惊喜的地方（负面）</span>
+                    <span class="quote">原文：当时没有太多的特别太多的感受...其实这游戏后面会有pvp吗？...还是这一点战斗其实简单，还是觉得有点简单...就算是感觉全部自动好像也没有什么问题了。</span>
+                </td>
+                <td>
+                    <span class="point">观点1：没有特别惊艳的地方（负面）</span>
+                    <span class="quote">原文：好像。没有什么比较惊艳的地方， ok也可以</span>
+                    <div class="separator"></div>
+                    <span class="point">观点2：只感觉到了充能机制，没get到策略点（负面）</span>
+                    <span class="quote">原文：其实我感觉现在只有这一个充能的这机制，没有完全get到他策略的那个点。</span>
+                </td>
+                <td>
+                    <span class="point">观点1：未明确提及惊喜点（不明）</span>
+                </td>
+            </tr>
+            <tr>
+                <td>那如果要您给CB1那个时候的战斗内容打分的话，您给出的这个分数相比这次的游玩评价是要更高还是更低呢？</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>您针对CB1战斗内容给出这个评价的原因是什么呢？</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>接下来想跟您针对性地聊聊和角色相关的战斗体验。如果要您给角色在战斗中的整体存在感由1~5进行打分的话，您会如何评价呢？</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <span class="point">观点1：存在感给3分（陈述）</span>
+                    <span class="quote">原文：三三分。</span>
+                </td>
+                <td>
+                    <span class="point">观点1：存在感给2-3分（负面）</span>
+                    <span class="quote">原文：2~3分。您觉得还是比较低的，对</span>
+                </td>
+                <td>
+                    <span class="point">观点1：存在感非常强，可能是4-5分（正面）</span>
+                    <span class="quote">原文：我感觉是存在感非常强。</span>
+                </td>
+            </tr>
+            <tr>
+                <td>您对于角色存在感做出该评价的原因是什么？</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <span class="point">观点1：角色和精灵的占比大概是一半一半（陈述）</span>
+                    <span class="quote">原文：因为这边占一半这边才然后因为本来这边占比应该是更少的，但是它跟板的话自己。会高一点，所以说是一般。</span>
+                </td>
+                <td>
+                    <span class="point">观点1：操作上有存在感，但数值和机制上不强（负面）</span>
+                    <span class="quote">原文：其实是这样，我感觉他在我的操作上他其实是挺有存在感的，但是实际上他在不管是数值还是机制的作用上，其实明显感觉没有那么强。</span>
+                    <div class="separator"></div>
+                    <span class="point">观点2：被动技能是一次性的，缺乏持续交互（负面）</span>
+                    <span class="quote">原文：它除了公用大招以外，它其他两个其实相当于是一次性的...就试出来之后，我再也不会去碰它了。</span>
+                    <div class="separator"></div>
+                    <span class="point">观点3：主动技能操作缺乏思考量（负面）</span>
+                    <span class="quote">原文：但是我的操作其实只是在我这三个人里面，我去评估一下我要使用谁，或者说是我哪个亮点点谁...因为我是感觉操作的过程我其实没有什么太多思考量。</span>
+                </td>
+                <td>
+                    <span class="point">观点1：角色是战斗中唯一主动操作的内容（陈述）</span>
+                    <span class="quote">原文：因为它是我战斗过程中唯一可以主动操纵你的东西，而且相当于有一个能量的及时性，说话我的注意力至少都是会放在下面</span>
+                    <div class="separator"></div>
+                    <span class="point">观点2：如果不关注角色技能释放时机，战斗收益会受损（陈述）</span>
+                    <span class="quote">原文：但是其实是有几个角色，他技能是需要场上的跟场上的状态也会有关系...但是因为我看的下面能量非常的时候，我就应该是已经死了1~2个，然后放了它其实是没有最大收益的</span>
+                </td>
+            </tr>
+            <tr>
+                <td>您觉得现在的角色在局内的存在感，作为一个玩家来说是否合适？会不会觉得存在感过强/过弱</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <span class="point">观点1：如果绑定了专武/宠物，存在感可以接受（正面）</span>
+                    <span class="quote">原文：有绑定如果你有绑定就可以了，对。</span>
+                    <div class="separator"></div>
+                    <span class="point">观点2：更希望精灵的存在感更强一些（建议）</span>
+                    <span class="quote">原文：我觉得它是精灵型...这毕竟角色不用擅长，还是这个要求。</span>
+                </td>
+                <td>
+                    <span class="point">观点1：视觉表现非常明显，但有点太长了，希望缩短（建议）</span>
+                    <span class="quote">原文：非常明显。一点点长，我感觉如果能缩短或者是给我一点，我一般玩这种游戏，我可能更倾向于移动端的，然后特效越少越好的那种。</span>
+                </td>
+                <td>
+                    <span class="point">观点1：注意力层面存在感过强，导致无法关注场上战斗（负面）</span>
+                    <span class="quote">原文：我觉得是过一来我的注意力就有有有一个明显的...我感觉像这种战斗的话，可能注意力集中在场上会好一点。</span>
+                    <div class="separator"></div>
+                    <span class="point">观点2：对战斗影响层面偏平衡，不算超模（正面）</span>
+                    <span class="quote">原文：但具体来说就是对战斗的影响层面上的话，我反而觉得目前它对战斗的影响可能是一个偏平衡，倒没有感觉他就是超模的这样的一种情况</span>
+                    <div class="separator"></div>
+                    <span class="point">观点3：不希望同时要兼顾下方UI和场上战斗，体验不好（负面）</span>
+                    <span class="quote">原文：我，让我看场上，我不看场上其实都可以，但不希望让我同时又要看场又要看场。</span>
+                </td>
+            </tr>
+            <tr>
+                <td>如果您觉得角色在战斗中的存在感过强或者过弱，您做出该评价是基于战斗机制上还是视觉表现上的原因呢？</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <span class="point">观点1：视觉表现上非常明显，机制上较弱（陈述）</span>
+                    <span class="quote">原文：视觉表现上您觉得。很明显...非常明显。</span>
+                </td>
+                <td>
+                    <span class="point">观点1：角色存在感强于精灵，大概是73开或82开（陈述）</span>
+                    <span class="quote">原文：但反正我们回到最开始的问题，反正总结来讲，你玩完这两场战斗之后，第一观感就是角色在战斗中的存在感，其实相比于精灵可能是一个比如说82开或者是73开的这么一种感觉，73开的感觉，ok。</span>
+                    <div class="separator"></div>
+                    <span class="point">观点2：视觉投入上明显角色大，精灵很弱（陈述）</span>
+                    <span class="quote">原文：表现上，你从投入的美术上明显是角色有。特别大，精灵就很弱</span>
+                </td>
+            </tr>
+            <tr>
+                <td>那如果要您给CB1时的角色存在感打分的话，是比现在这个分数要更高还是更低呢？</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>您针对CB1的角色存在感给出这个评价的原因是什么呢？</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>以您的游戏经历来看，您觉得目前方案一和方案二中所展现出的战斗玩法，未来在策略性上（比如角色和精灵的机制、数值等）的拓展潜力大吗？</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <span class="point">观点1：方案一潜力更大（正面）</span>
+                    <span class="quote">原文：就是方案一我想到那个东西就是一个皇室战争也是等费用，然后武装很快就感觉会更好一点...至少一些能想到的不同的东西，不同的游戏</span>
+                    <div class="separator"></div>
+                    <span class="point">观点2：方案二潜力小，像麦当劳点餐（负面）</span>
+                    <span class="quote">原文：然后第二种你就只能想到那种麦当劳的时候</span>
+                </td>
+                <td>
+                    <span class="point">观点1：方案一的可玩性比方案二高（正面）</span>
+                    <span class="quote">原文：能想到特别好的，你觉得第一种会至少可玩性上面会比你的第二种要高一些。</span>
+                    <div class="separator"></div>
+                    <span class="point">观点2：方案二除了“哪里亮了点哪里”，想不到好的例子（负面）</span>
+                    <span class="quote">原文：然后第二种我说实话我除了哪里亮了点，哪里暂时没有想到特别好的就是例子。</span>
+                </td>
+                <td>
+                    <span class="point">观点1：方案一比方案二拓展潜力大（正面）</span>
+                    <span class="quote">原文：我觉得方案一会比方案二的你说拓展前面的话会比方案二应该会更。</span>
+                </td>
+            </tr>
+            <tr>
+                <td>您针对策略拓展潜力上给出这个评价的原因是什么呢？</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <span class="point">观点1：方案一可以选择攒费爆发或等待时机（正面）</span>
+                    <span class="quote">原文：你可以选择就等一会，然后再。一起放什么otk这种，对，可能有些角色技能他要的点数更多更。强，你要不要等等点数有。</span>
+                    <div class="separator"></div>
+                    <span class="point">观点2：方案二只是单纯的谁先用谁后用，属于简单手游逻辑（负面）</span>
+                    <span class="quote">原文：然后第二种你就只能...至于等能量条的一般都是属于那种比较简单的手游里面，不会让你太多操作的，所以它感觉是没有太多的拓展，只不过是谁先用谁后用而已</span>
+                </td>
+                <td>
+                    <span class="point">观点1：公用能量条（方案一）有很多取舍（正面）</span>
+                    <span class="quote">原文：就公公用能量这个东西它其实有很多取舍</span>
+                </td>
+                <td>
+                    <span class="point">观点1：方案一涉及技能顺序、内容量控制、取舍（正面）</span>
+                    <span class="quote">原文：主要原因就像这种机制，的话相当于你在，角色之间，不管是使用技能顺序，然后是整体的内容量控制的策略性，或者是你的取舍会更高一点</span>
+                    <div class="separator"></div>
+                    <span class="point">观点2：方案二只有用或不用的选择，偏单一（负面）</span>
+                    <span class="quote">原文：然后对于方案二来说的话，就会偏向，因为你只要能量满了，如果你不用损失的，对大概率是有用或者不用他选择可能会比较偏单一点</span>
+                </td>
+            </tr>
+            <tr>
+                <td>目前您在释放技能时的交互体验上，是否有觉得不满意的地方？</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <span class="point">观点1：技能拖动时如果贴在屏幕中间会相互干扰（负面）</span>
+                    <span class="quote">原文：那种这种什么技能，如果在贴在屏幕中间也会相互拖一点。</span>
+                    <div class="separator"></div>
+                    <span class="point">观点2：整体没有觉得特别不顺手（正面）</span>
+                    <span class="quote">原文：这倒没有，毕竟。只有这么多东西。也没有，他往这里拖的时候，其实也还行也蛮容易懂的，没错</span>
+                </td>
+                <td>
+                    <span class="point">观点1：点按和拖动不统一，感觉有点卡手（负面）</span>
+                    <span class="quote">原文：我感觉如果全部做成拖动会舒服一点，我感觉有点。有时候会卡住，因为我习惯性拖动的话，它哪怕我拖出来以后给它一个坐标，我可能会整体的行为它没有。变化...会卡手我点了一下，然后没反应的话，我会觉得很。难受</span>
+                </td>
+                <td>
+                    <span class="point">观点1：交互逻辑不统一最卡手（负面）</span>
+                    <span class="quote">原文：最卡手的地方就是我并不知道有些东西，然后点一下还是我们直接用，还是我第二次用自己产品。</span>
+                </td>
+            </tr>
+            <tr>
+                <td>如果将目前的交互形式改成卡牌对战类游戏的方式，您觉得在交互体验上会有明显的改变吗？</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <span class="point">观点1：无所谓，只要适应了就行（陈述）</span>
+                    <span class="quote">原文：我觉得倒无所谓，因为玩家就是从我的角度，我只要适应了，我。只要玩。过几个小时，我知道它这个操作模式了，不管是点按还是拖动，我。觉得 Ok其实都是还能接受的。</span>
+                </td>
+                <td>
+                    <span class="point">观点1：倾向于直接打出去就生效，不需要锁对象（建议）</span>
+                    <span class="quote">原文：如果不需要锁对象的话可能还好...但整体我可能是会比较倾向于直接打出去就可以立刻生下来，就不像指定对象那种。</span>
+                </td>
+            </tr>
+            <tr>
+                <td>您针对交互体验给出这个评价的原因是什么呢？</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <span class="point">观点1：统一操作逻辑会比较舒服（建议）</span>
+                    <span class="quote">原文：我感觉如果全部做成拖动会舒服一点</span>
+                </td>
+                <td>
+                    <span class="point">观点1：核心诉求是三个角色的交互逻辑要统一（建议）</span>
+                    <span class="quote">原文：了解，但我听上去您的核心诉求其实是需要在这个界面上去将三个角色都至少他使用技能的交互逻辑是统一的是吗？...对</span>
+                    <div class="separator"></div>
+                    <span class="point">观点2：形式是否像打牌无所谓，熟练度能解决（陈述）</span>
+                    <span class="quote">原文：上去想想，尤其这种的话一般来说有熟练度加，其实可能都不是问题，好。</span>
+                </td>
+            </tr>
+            <tr>
+                <td>假设一个角色在作为队长出战时，会在棋盘上出现如下主题物件，请问该主题物件是否会增加您获取该角色的意愿？</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <span class="point">观点1：影响很小，2分以上（陈述）</span>
+                    <span class="quote">原文：就是两分以上两。</span>
+                    <div class="separator"></div>
+                    <span class="point">观点2：如果只是摆件没有影响，如果好看且有场地影响会更好（建议）</span>
+                    <span class="quote">原文：如果它只是一个摆件摆在那边对不对？没有什么影响...它如果够好看的话，它如果能对场地。造成一些。影响的话，那就会更好一点。我就。会更。有意向</span>
+                </td>
+                <td>
+                    <span class="point">观点1：取决于剧情比重和数值，如果是纯物件打2分（负面）</span>
+                    <span class="quote">原文：影响，它主要是取决于这个物件它在剧情里的比重，然后还有这个角色它在剧情里的比重...然后如果普通的一个物件的话，如果它没有什么特别强的剧情含义的话，我可能觉得就无所谓...两。两分就觉得其实已经很。弱，对，我感觉有点买椟还珠。</span>
+                </td>
+                <td>
+                    <span class="point">观点1：几乎没有影响，打1分（负面）</span>
+                    <span class="quote">原文：感觉没什么影响...对几乎没有。</span>
+                    <div class="separator"></div>
+                    <span class="point">观点2：如果不玩这个流派就看不到，只是流派的图腾（陈述）</span>
+                    <span class="quote">原文：因为我不玩这个流派，我玩的看不到这个物件的，因为我必须把它设在队长上...它其实是我玩某个流派，有了某个角色之后的，它变成流派的一个标志物...说白了它是影响叫做我玩流派的图腾是否好看</span>
+                </td>
+            </tr>
+            <tr>
+                <td>其他问题反馈</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <span class="point">观点1：询问是否有PVP，似乎对深度玩法有期待（陈述）</span>
+                    <span class="quote">原文：其实这游戏后面会有pvp吗？</span>
+                </td>
+                <td>
+                    <span class="point">观点1：感觉角色和精灵的策略是割裂的，角色只是加buff，没有改变精灵阵容行为（负面）</span>
+                    <span class="quote">原文：因为感觉现在角色他好像只是在给精灵增加一个buff，然后他有个被动技能给角色，他的行为其实是没有办法完全改变他的精灵的阵容的...但是感觉在策略上好像经营是经营，决策是决策，虽然我数值提高了，但是这个数值因为它是个数，它的体验可能。</span>
+                </td>
+                <td>
+                    <span class="point">观点1：担心“专人专宠”机制会限制配队自由度，变成官方教你玩游戏（负面）</span>
+                    <span class="quote">原文：如果再加上这个的话，我感觉其实反而我会感觉整个队伍的可搭配性会变得更弱...受限制配机构一旦也会就相当于让配备更简单直接策划推出的</span>
+                    <div class="separator"></div>
+                    <span class="point">观点2：认可“人和宠绑定”的概念，但希望组合不要锁死（建议）</span>
+                    <span class="quote">原文：我感觉其实角色和精灵装就有组合这件事情，我觉得是一个比较有想象力事情，但是你要把这个组合给锁死了，这件事也就更有办法让他的编队更死了...不是专我是认可人和宠进行一个绑定。</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+```
