@@ -1,0 +1,100 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+    .download-btn-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .download-btn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 24px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        text-decoration: none;
+    }
+    .download-btn:hover {
+        background-color: #45a049;
+    }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ddd;
+    }
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+        vertical-align: top;
+        min-width: 200px;
+    }
+    thead {
+        background-color: #4472C4;
+        color: black;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+    thead th {
+        color: white; /* Changed to white for better contrast on blue background, though prompt asked for black text on blue fill, standard is usually white on dark. Sticking to prompt: Blue fill, Black font. */
+        color: black;
+    }
+    /* Zebra striping */
+    tr:nth-child(4n-3) { background-color: #ffffff; }
+    tr:nth-child(4n-2) { background-color: #ffffff; }
+    tr:nth-child(4n-1) { background-color: #f2f2f2; }
+    tr:nth-child(4n) { background-color: #f2f2f2; }
+    
+    .viewpoint {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+        background-color: #fffde7; /* Light yellow highlight for viewpoints */
+        padding: 2px 5px;
+        border-radius: 3px;
+    }
+    .quote {
+        font-style: italic;
+        color: #666;
+        display: block;
+        margin-bottom: 10px;
+        font-size: 0.9em;
+    }
+    .separator {
+        border-top: 1px dashed #ccc;
+        margin: 10px 0;
+    }
+    .attitude-positive { color: #2e7d32; }
+    .attitude-negative { color: #c62828; }
+    .attitude-neutral { color: #f57f17; }
+    .attitude-statement { color: #1565c0; }
+    .attitude-suggestion { color: #6a1b9a; }
+</style>
+<script>
+    function exportTableToExcel(tableID, filename = ''){
+        var downloadLink;
+        var dataType = 'application/vnd.ms-excel';
+        var tableSelect = document.getElementById(tableID);
+        var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+        
+        filename = filename? filename + '.xls':'excel_data.xls';
+        
+        downloadLink = document.createElement("a");
+        
+        document.body.appendChild(downloadLink);
+        
+        if(navigator.msSaveOrOpenBlob){
+            var blob = new Blob(['\ufeff', tableHTML], {
+                type: dataType
+            });
+            navigator.msSaveOrOpenBlob( blob, filename);
+        }else{
+            downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+            downloadLink.download = filename;
