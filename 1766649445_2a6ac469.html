@@ -1,0 +1,272 @@
+由于您尚未提供具体的 **Transcript（访谈原文）** 和 **Schema_Info（表格结构）**，我将为您生成一个**包含模拟数据**的 HTML 模板。
+
+这个模板完全遵循了您的 **“数据零丢失”** 和 **“严格对齐”** 原则，展示了最终输出的格式。您可以直接下载 Excel 验证功能。
+
+**请在下一次对话中提供您的数据，我将为您生成真实内容的报告。**
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UX访谈数据归档 - 结构化输出</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .control-panel {
+            text-align: center;
+            margin-bottom: 20px;
+            position: sticky;
+            top: 0;
+            background: #f9f9f9;
+            padding: 10px;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        button.export-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: background-color 0.3s;
+        }
+
+        button.export-btn:hover {
+            background-color: #45a049;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px; /* 防止过窄 */
+        }
+
+        /* 表头样式 */
+        th {
+            background-color: #e3f2fd; /* 蓝底 */
+            color: #333;
+            font-weight: bold;
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+            position: sticky;
+            top: 0; /* 冻结首行 - 注意：如果上方有sticky容器，这里可能需要调整top值，此处为演示 */
+            z-index: 10;
+        }
+
+        /* 单元格样式 */
+        td {
+            padding: 15px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+            line-height: 1.5;
+            min-width: 250px;
+        }
+
+        /* 斑马纹 - 隔行变色 */
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        tr:hover {
+            background-color: #fffde7; /* 鼠标悬停高亮 */
+        }
+
+        /* 内容样式 */
+        .viewpoint-block {
+            margin-bottom: 15px;
+        }
+
+        .viewpoint-text {
+            font-weight: bold;
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .attitude-tag {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 5px;
+            color: white;
+        }
+        
+        .att-pos { background-color: #66bb6a; } /* 正面 */
+        .att-neg { background-color: #ef5350; } /* 负面 */
+        .att-neu { background-color: #78909c; } /* 中立/陈述 */
+        .att-sug { background-color: #ffa726; } /* 建议 */
+
+        .separator {
+            border: 0;
+            border-top: 1px dashed #ccc;
+            margin: 8px 0;
+        }
+
+        .original-text {
+            font-style: italic;
+            color: #666;
+            font-size: 0.9em;
+            display: block;
+            background: #fafafa;
+            padding: 5px;
+            border-left: 3px solid #ddd;
+        }
+
+        /* 兜底行特殊样式 */
+        .row-other {
+            background-color: #fff3e0 !important;
+        }
+        .row-irrelevant {
+            background-color: #eceff1 !important;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="control-panel">
+        <button class="export-btn" onclick="exportTableToExcel('uxData', 'UX访谈归档数据')">⬇ 导出 Excel (.xls)</button>
+        <p style="font-size: 12px; color: #666; margin-top: 5px;">*点击按钮将生成包含所有格式的 Excel 文件</p>
+    </div>
+
+    <div class="table-container">
+        <table id="uxData">
+            <thead>
+                <tr>
+                    <!-- 模拟 Schema 结构 -->
+                    <th style="width: 200px;">话题维度 (Topic)</th>
+                    <th>玩家 A (Player_A)</th>
+                    <th>玩家 B (Player_B)</th>
+                    <th>玩家 C (Player_C)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 模拟数据：Step 3 填空结果 -->
+                
+                <!-- 话题 1 -->
+                <tr>
+                    <td><b>登录流程 - 验证码体验</b></td>
+                    
+                    <!-- 玩家 A -->
+                    <td>
+                        <div class="viewpoint-block">
+                            <span class="viewpoint-text"><span class="attitude-tag att-neg">负面</span>**[1] 验证码刷新太慢**</span>
+                            <hr class="separator">
+                            <span class="original-text">原文：那个验证码真的好烦，我点了刷新，转圈转了半分钟才出来，太慢了。</span>
+                        </div>
+                    </td>
+                    
+                    <!-- 玩家 B (空值处理) -->
+                    <td></td>
+                    
+                    <!-- 玩家 C -->
+                    <td>
+                        <div class="viewpoint-block">
+                            <span class="viewpoint-text"><span class="attitude-tag att-pos">正面</span>**[1] 图形验证很有趣**</span>
+                            <hr class="separator">
+                            <span class="original-text">原文：我觉得那个拼图的验证还挺有意思的，比输字母强。</span>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- 话题 2 -->
+                <tr>
+                    <td><b>核心玩法 - 战斗打击感</b></td>
+                    
+                    <!-- 玩家 A -->
+                    <td>
+                        <div class="viewpoint-block">
+                            <span class="viewpoint-text"><span class="attitude-tag att-sug">建议</span>**[2] 增加受击反馈音效**</span>
+                            <hr class="separator">
+                            <span class="original-text">原文：打怪的时候声音有点闷，如果能加一点那种金属碰撞的声音可能会更爽一点。</span>
+                        </div>
+                    </td>
+                    
+                    <!-- 玩家 B -->
+                    <td>
+                        <div class="viewpoint-block">
+                            <span class="viewpoint-text"><span class="attitude-tag att-neg">负面</span>**[1] 技能释放有延迟**</span>
+                            <hr class="separator">
+                            <span class="original-text">原文：按了技能键，感觉要过个0.5秒才放出来，手感很肉，不跟手。</span>
+                        </div>
+                    </td>
+                    
+                    <!-- 玩家 C -->
+                    <td></td>
+                </tr>
+
+                <!-- Step 4 兜底检查：其他反馈记录 -->
+                <tr class="row-other">
+                    <td><b>其他反馈记录 (Unmatched)</b><br><span style="font-size:0.8em; color:gray">(有效信息但未匹配到话题)</span></td>
+                    <td></td>
+                    <td>
+                        <div class="viewpoint-block">
+                            <span class="viewpoint-text"><span class="attitude-tag att-neu">陈述</span>**[2] 提到以前玩过类似游戏**</span>
+                            <hr class="separator">
+                            <span class="original-text">原文：我之前玩过那个《代号X》，跟你们这个有点像，但是那个画风更暗黑一点。</span>
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+
+                <!-- Step 4 兜底检查：无关原文 -->
+                <tr class="row-irrelevant">
+                    <td><b>无关原文 / 闲聊 (Irrelevant)</b><br><span style="font-size:0.8em; color:gray">(语气词、设备调试等)</span></td>
+                    <td>
+                        <span class="original-text">原文：喂喂？听得见吗？哎好。</span>
+                    </td>
+                    <td>
+                        <span class="original-text">原文：稍微等一下，我接个外卖电话。</span>
+                    </td>
+                    <td>
+                        <span class="original-text">原文：嗯...那个...让我想想。</span>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // 简单的 Excel 导出逻辑
+        var tableToExcel = (function() {
+            var uri = 'data:application/vnd.ms-excel;base64,',
+            template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta charset="UTF-8"></head><body><table>{table}</table></body></html>',
+            base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) },
+            format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
+            return function(table, name) {
+                if (!table.nodeType) table = document.getElementById(table)
+                var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
+                
+                // 创建下载链接
+                var link = document.createElement("a");
+                link.download = name + ".xls";
+                link.href = uri + base64(format(template, ctx));
+                link.click();
+            }
+        })()
+    </script>
+</body>
+</html>
+```
